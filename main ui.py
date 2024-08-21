@@ -1,4 +1,5 @@
 import tkinter as tk
+from display import CalDisplay as CalD
 
 class MyCalculator:
     def __init__(self):
@@ -8,7 +9,7 @@ class MyCalculator:
         self.root.geometry("300x400")
         self.root.title("My Calculator")
 
-        self.label = tk.Label(self.root, text="sum", font=('Montserrat', 18))
+        self.label = tk.Label(self.root, text="", font=('Montserrat', 18))
         self.label.pack()
 
         self.button = tk.Button(self.root, text="AC", height=3, width=8)
@@ -68,9 +69,9 @@ class MyCalculator:
         self.buttonAns = tk.Button(self.root, text="=", height=3, width=8, command=(self))
         self.buttonAns.place(x=220, y=305)
 
-        self.button = tk.Label(self.root, text="1")
-        self.button.place(x=10, y=20)
-
+        self.button = tk.Label(text="test")
+        self.button.place(x=10,y=20)
+        
         self.root.mainloop()
 
 
