@@ -4,13 +4,15 @@ class MyCalculator:
     def __init__(self):
 
         self.number =""
+        self.current_input = ""
+        self.result = None
         self.root = tk.Tk()
 
         self.root.geometry("300x370")
         self.root.title("My Calculator")
 
-        self.label = tk.Label(self.root, text="", font=('Montserrat', 18))
-        self.label.pack()
+        self.label = tk.Label(self.root, text="", font=('Montserrat', 18), anchor='e', bg="white", height=2)
+        self.label.pack(fill=tk.BOTH, padx=10, pady=10)
 
         self.button = tk.Button(self.root, text="AC", height=3, width=8)
         self.button.place(x=10, y=80)
@@ -18,7 +20,7 @@ class MyCalculator:
         self.button = tk.Button(self.root, text="+/-", height=3, width=8)
         self.button.place(x=80, y=80)
 
-        self.button = tk.Button(self.root, text="⌫", height=3, width=8)
+        self.button = tk.Button(self.root, text="⌫", height=3, width=8, command=self.backspace)
         self.button.place(x=150, y=80)
 
         self.button = tk.Button(self.root, text="÷", height=3, width=8)
@@ -69,25 +71,23 @@ class MyCalculator:
         self.buttonAns = tk.Button(self.root, text="=", height=3, width=8, command=(self))
         self.buttonAns.place(x=220, y=305)
 
-        self.button = tk.Label(text="test")
-        self.button.place(x=10,y=20)
-        
         self.root.mainloop()
 
+    def input_number(self, number):
+        self.current_input += number
+        self.update_label()
 
+    def backspace(self):
+        if self.current_input:
+            self.current_input = self.current_input[:-1]
+        self.update_label()
+    
+    def update_label(self):
+        display_text = self.current_input if self.current_input else str(self.result if self.result is not None else "")
+        self.label.config(text=display_text)
+    
+    
     def ansFn(self):
         self.label
-        
-    def input_number(self, number):
-<<<<<<< HEAD
-        self.number = number
-        
-
-        print(self.number)
-
-=======
-        self.number + number
-        print(number)
->>>>>>> 58bcaed7dad75c69c6da06ff84213b5c4a784ff1
-        
+          
 MyCalculator()
