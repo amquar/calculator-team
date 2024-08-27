@@ -79,10 +79,15 @@ class MyCalculator:
         self.label
         
     def input_number(self, number):
+<<<<<<< HEAD
         self.number = number
         
 
         print(self.number)
 
+=======
+        self.number + number
+        print(number)
+>>>>>>> 58bcaed7dad75c69c6da06ff84213b5c4a784ff1
         
 MyCalculator()
