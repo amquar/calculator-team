@@ -14,7 +14,7 @@ class MyCalculator:
         self.label = tk.Label(self.root, text="", font=('Montserrat', 18), anchor='e', bg="white", height=2)
         self.label.pack(fill=tk.BOTH, padx=10, pady=10)
 
-        self.button = tk.Button(self.root, text="AC", height=3, width=8)
+        self.button = tk.Button(self.root, text="AC", height=3, width=8, command=self.clear)
         self.button.place(x=10, y=80)
 
         self.button = tk.Button(self.root, text="+/-", height=3, width=8)
@@ -89,6 +89,7 @@ class MyCalculator:
     def clear(self):
         if self.current_input != "":
             self.backspace()
+            self.clear()
         else:
             self.update_label()
     
