@@ -85,9 +85,11 @@ class MyCalculator:
     def update_label(self):
         display_text = self.current_input if self.current_input else str(self.result if self.result is not None else "")
         self.label.config(text=display_text)
+
+    def clear(self):
+        if self.current_input != "":
+            self.backspace()
+        else:
+            self.update_label()
     
-    
-    def ansFn(self):
-        self.label
-          
 MyCalculator()
