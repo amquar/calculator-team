@@ -93,5 +93,54 @@ class MyCalculator:
         else:
             self.update_label()
     
-    
+
+    def input_number(self, number):
+        self.current_input += number
+        self.update_label()
+
+    def backspace(self):
+        if self.current_input:
+            self.current_input = self.current_input[:-1]
+        self.update_label()
+
+    def update_label(self):
+        display_text = self.current_input if self.current_input else str(self.result if self.result is not None else "")
+        self.label.config(text=display_text)
+
+    def clear(self):
+        self.current_input = ""
+        self.result = None
+        self.operation = None
+        self.update_label()
+
+    def set_operation(self, operation):
+        if self.current_input:
+            if self.result is None:
+                self.result = float(self.current_input)
+            else:
+                self.calculate()
+            self.current_input = ""
+            self.operation = operation
+
+    def add(self):
+        self.set_operation('+')
+
+    def calculate(self):
+        if self.current_input and self.operation:
+            if self.operation == '+':
+                self.result += float(self.current_input)
+            elif self.operation == '-':
+                self.result -= float(self.current_input)
+            elif self.operation == '*':
+                self.result *= float(self.current_input)
+            elif self.operation == '/':
+                try:
+                    self.result /= float(self.current_input)
+                except ZeroDivisionError:
+                    self.result = "Error"
+            
+            self.current_input = ""
+            self.operation = None
+            self.update_label()
+
 MyCalculator()

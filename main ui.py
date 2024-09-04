@@ -93,5 +93,4 @@ class MyCalculator:
         else:
             self.update_label()
     
-    
 MyCalculator()

@@ -1,4 +1,5 @@
 import tkinter as tk
+from division import divide_numbers  # Assuming this is a custom function for division
 
 class MyCalculator:
     def __init__(self):
@@ -13,54 +14,31 @@ class MyCalculator:
         self.label = tk.Label(self.root, text="", font=('Montserrat', 18), anchor='e', bg="white", height=2)
         self.label.pack(fill=tk.BOTH, padx=10, pady=10)
 
-        self.create_buttons()
+        # Defining buttons
+        tk.Button(self.root, text="AC", height=3, width=8, command=self.clear).place(x=10, y=80)
+        tk.Button(self.root, text="+/-", height=3, width=8, command=self.toggle_sign).place(x=80, y=80)
+        tk.Button(self.root, text="⌫", height=3, width=8, command=self.backspace).place(x=150, y=80)
+        tk.Button(self.root, text="÷", height=3, width=8, command=lambda: self.set_operation("÷")).place(x=220, y=80)
+        tk.Button(self.root, text="7", height=3, width=8, command=lambda: self.input_number("7")).place(x=10, y=135)
+        tk.Button(self.root, text="8", height=3, width=8, command=lambda: self.input_number("8")).place(x=80, y=135)
+        tk.Button(self.root, text="9", height=3, width=8, command=lambda: self.input_number("9")).place(x=150, y=135)
+        tk.Button(self.root, text="x", height=3, width=8, command=lambda: self.set_operation("x")).place(x=220, y=135)
+        tk.Button(self.root, text="4", height=3, width=8, command=lambda: self.input_number("4")).place(x=10, y=190)
+        tk.Button(self.root, text="5", height=3, width=8, command=lambda: self.input_number("5")).place(x=80, y=190)
+        tk.Button(self.root, text="6", height=3, width=8, command=lambda: self.input_number("6")).place(x=150, y=190)
+        tk.Button(self.root, text="-", height=3, width=8, command=lambda: self.set_operation("-")).place(x=220, y=190)
+        tk.Button(self.root, text="1", height=3, width=8, command=lambda: self.input_number("1")).place(x=10, y=245)
+        tk.Button(self.root, text="2", height=3, width=8, command=lambda: self.input_number("2")).place(x=80, y=245)
+        tk.Button(self.root, text="3", height=3, width=8, command=lambda: self.input_number("3")).place(x=150, y=245)
+        tk.Button(self.root, text="+", height=3, width=8, command=lambda: self.set_operation("+")).place(x=220, y=245)
+        tk.Button(self.root, text="0", height=3, width=18, command=lambda: self.input_number("0")).place(x=10, y=305)
+        tk.Button(self.root, text=".", height=3, width=8).place(x=150, y=305)
+        tk.Button(self.root, text="=", height=3, width=8, command=self.calculate).place(x=220, y=305)
+
         self.root.mainloop()
-
-    def create_buttons(self):
-        buttons = [
-            ('AC', 10, 80, self.clear),
-            ('+/-', 80, 80, None),
-            ('⌫', 150, 80, self.backspace),
-            ('÷', 220, 80, lambda: self.set_operation('/')),
-            ('7', 10, 135, lambda: self.input_number("7")),
-            ('8', 80, 135, lambda: self.input_number("8")),
-            ('9', 150, 135, lambda: self.input_number("9")),
-            ('x', 220, 135, lambda: self.set_operation('*')),
-            ('4', 10, 190, lambda: self.input_number("4")),
-            ('5', 80, 190, lambda: self.input_number("5")),
-            ('6', 150, 190, lambda: self.input_number("6")),
-            ('-', 220, 190, lambda: self.set_operation('-')),
-            ('1', 10, 245, lambda: self.input_number("1")),
-            ('2', 80, 245, lambda: self.input_number("2")),
-            ('3', 150, 245, lambda: self.input_number("3")),
-            ('+', 220, 245, lambda: self.set_operation('+')),
-            ('0', 10, 305, lambda: self.input_number("0"), 18),
-            ('.', 150, 305, lambda: self.input_number(".")),
-            ('=', 220, 305, self.calculate)
-        ]
-
-        for (text, x, y, command, width) in buttons:
-            width = width if width else 8
-            button = tk.Button(self.root, text=text, height=3, width=width, command=command)
-            button.place(x=x, y=y)
 
     def input_number(self, number):
         self.current_input += number
-        self.update_label()
-
-    def backspace(self):
-        if self.current_input:
-            self.current_input = self.current_input[:-1]
-        self.update_label()
-
-    def update_label(self):
-        display_text = self.current_input if self.current_input else str(self.result if self.result is not None else "")
-        self.label.config(text=display_text)
-
-    def clear(self):
-        self.current_input = ""
-        self.result = None
-        self.operation = None
         self.update_label()
 
     def set_operation(self, operation):
@@ -68,26 +46,48 @@ class MyCalculator:
             if self.result is None:
                 self.result = float(self.current_input)
             else:
-                self.calculate()
+                self.calculate()  # calculate the previous operation
+
             self.current_input = ""
             self.operation = operation
+            self.update_label()
 
     def calculate(self):
         if self.current_input and self.operation:
-            if self.operation == '+':
+            if self.operation == "+":
                 self.result += float(self.current_input)
-            elif self.operation == '-':
+            elif self.operation == "-":
                 self.result -= float(self.current_input)
-            elif self.operation == '*':
+            elif self.operation == "x":
                 self.result *= float(self.current_input)
-            elif self.operation == '/':
-                try:
-                    self.result /= float(self.current_input)
-                except ZeroDivisionError:
-                    self.result = "Error"
-            
+            elif self.operation == "÷":
+                self.result = divide_numbers(self.result, float(self.current_input))  # Assuming divide_numbers handles division by zero
+
             self.current_input = ""
             self.operation = None
             self.update_label()
+
+    def toggle_sign(self):
+        if self.current_input:
+            if self.current_input.startswith('-'):
+                self.current_input = self.current_input[1:]  # Remove the negative sign
+            else:
+                self.current_input = '-' + self.current_input  # Add the negative sign
+            self.update_label()
+
+    def backspace(self):
+        if self.current_input:
+            self.current_input = self.current_input[:-1]
+        self.update_label()
+
+    def clear(self):
+        self.current_input = ""
+        self.result = None
+        self.operation = None
+        self.update_label()
+
+    def update_label(self):
+        display_text = self.current_input if self.current_input else str(self.result if self.result is not None else "")
+        self.label.config(text=display_text)
 
 MyCalculator()
