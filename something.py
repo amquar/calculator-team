@@ -1,7 +1,7 @@
 import tkinter as tk
 
 from division import divide_numbers
-from multiple import multiple_numbers
+from multiply import multiply_numbers
 from plus import plus_numbers
 from minus import minus_numbers
 
@@ -68,11 +68,8 @@ class MyCalculator:
         self.button = tk.Button(self.root, text="+", height=3, width=8, command=lambda: self.call_operator("+"))
         self.button.place(x=220, y=245)
 
-        self.button = tk.Button(self.root, text="0", height=3, width=18, command=lambda: self.input_number("0"))
+        self.button = tk.Button(self.root, text="0", height=3, width=28, command=lambda: self.input_number("0"))
         self.button.place(x=10, y=305)
-
-        self.button = tk.Button(self.root, text=".", height=3, width=8)
-        self.button.place(x=150, y=305)
 
         self.buttonAns = tk.Button(self.root, text="=", height=3, width=8, command=self.equal)
         self.buttonAns.place(x=220, y=305)
@@ -84,7 +81,7 @@ class MyCalculator:
         if self.operator == "÷":
             left_operand = divide_numbers(float(self.left_operand), float(self.right_operand))
         elif self.operator == "x":
-            left_operand = multiple_numbers(float(self.left_operand), float(self.right_operand))
+            left_operand = multiply_numbers(float(self.left_operand), float(self.right_operand))
         elif self.operator == "+":
             left_operand = plus_numbers(float(self.left_operand), float(self.right_operand))
         elif self.operator == "-":
