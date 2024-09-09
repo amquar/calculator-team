@@ -1,18 +1,9 @@
-
-def divide_numbers():
-    try:
-        
-        num1 = float(input())
-        num2 = float(input())
-        
+def divide_numbers(num1, num2):
+    if num2 != 0:
         result = num1 / num2
-        
         return result
+    else:
+        print("Error Cannot Divide by Zero")
         
-    except ZeroDivisionError:
-        print("Error: Division by zero is not allowed.")
-    except ValueError:
-        print("Error: Please enter valid numbers.")
-
 if __name__ == "__main__":
     divide_numbers()
