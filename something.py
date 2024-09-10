@@ -23,7 +23,7 @@ class MyCalculator:
         self.button = tk.Button(self.root, text="AC", height=3, width=8, command=self.clear)
         self.button.place(x=10, y=80)
 
-        self.button = tk.Button(self.root, text="+/-", height=3, width=8)
+        self.button = tk.Button(self.root, text="+/-", height=3, width=8, command=self.toggle_sign)
         self.button.place(x=80, y=80)
 
         self.button = tk.Button(self.root, text="⌫", height=3, width=8, command=self.backspace)
@@ -112,7 +112,23 @@ class MyCalculator:
             if self.left_operand:
                 self.left_operand = self.left_operand[:-1]
         self.update_label()
-    
+
+    def toggle_sign(self):
+        if self.inputing_right:
+            if self.right_operand is not None and self.right_operand != '':
+                if self.right_operand.startswith('-'):
+                    self.right_operand = self.right_operand[1:]
+                else:
+                    self.right_operand = '-' + self.right_operand
+        else:
+            if self.left_operand is not None and self.left_operand != '':
+                if self.left_operand.startswith('-'):
+                    self.left_operand = self.left_operand[1:]
+                else:
+                    self.left_operand = '-' + self.left_operand
+        self.update_label()
+
+
     def update_label(self):
         if self.inputing_right:
             display_text = self.right_operand
